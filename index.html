@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="scripts/aframe.min.js"></script>
+        <script src="scripts/aframe-ar.js"></script>
+        <script src="scripts/aframe-extras.loaders.min.js"></script>
+        <script src="scripts/gesture-detector.js"></script>
+        <script src="scripts/gesture-handler.js"></script>
+      
+      <style>
+  .button {
+    background-color: #E96B15; 
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 2px solid rgba(233,107,21 0.541);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+  
+  </style>
+
+<div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
+    <button class="button" id="btn1">ISND OPEN LAB</button>
+    <button class="button" id="btn2">Oculus</button>
+    <button class="button" id="btn3">Bitcoin</button>
+    <button class="button" id="btn4">Reset!</button>
+   
+  </div>
+    </head>
+
+    <body style="margin: 0; overflow: hidden;">
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            loading-screen="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            id="scene"
+            embedded
+            gesture-detector
+            renderer="gammaOutput: true"
+        >
+            
+
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/marker.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                
+            >
+              
+                <a-entity
+                    id="oculus"
+                    scale=".03 .03 .03"
+                    rotation="-90 0 0"
+                    position="0 0 .2"
+                    animation-mixer="loop: repeat"
+                    gltf-model="assets/model3.glb"
+                    class="clickable"
+                    gesture-handler
+                    visible="false"
+                ></a-entity>
+              <a-entity
+                    id="isnd"
+                    scale=".01 .01 .01"
+                    rotation="-90 0 0"
+                    position="0 0 .5"
+                    animation-mixer="loop: repeat"
+                    gltf-model="assets/OPEN.glb"
+                    class="clickable"
+                    gesture-handler
+                    visible="false"
+                ></a-entity>
+              <a-entity
+                    id="bitcoin"
+                    scale="2 2 2"
+                    rotation="0 0 0"
+                    position="0 0 0"
+                    animation-mixer="loop: repeat"
+                    gltf-model="assets/model2.glb"
+                    class="clickable"
+                    gesture-handler
+                    visible="false"
+                ></a-entity>
+              <script>
+              document.getElementById("btn1").addEventListener("click", (e)=>{
+			  var v = document.querySelector('#isnd').setAttribute("visible", "true");
+              var b = document.querySelector('#oculus').setAttribute("visible", "false");
+              var c = document.querySelector('#bitcoin').setAttribute("visible", "false");
+				})
+                document.getElementById("btn2").addEventListener("click", (e)=>{
+			  var v = document.querySelector('#oculus').setAttribute("visible", "true");
+              var b = document.querySelector('#isnd').setAttribute("visible", "false");
+              var c = document.querySelector('#bitcoin').setAttribute("visible", "false");
+				})
+                document.getElementById("btn3").addEventListener("click", (e)=>{
+			  var v = document.querySelector('#oculus').setAttribute("visible", "false");
+              var b = document.querySelector('#isnd').setAttribute("visible", "false");
+              var c = document.querySelector('#bitcoin').setAttribute("visible", "true");
+				})
+                document.getElementById("btn4").addEventListener("click", (e)=>{
+			  var v = document.querySelector('#oculus').setAttribute("visible", "false");
+              var b = document.querySelector('#isnd').setAttribute("visible", "false");
+              var c = document.querySelector('#bitcoin').setAttribute("visible", "false");
+				})
+              </script>
+            </a-marker>
+
+            <a-entity camera></a-entity>
+              
+        </a-scene>
+    </body>
+</html>
